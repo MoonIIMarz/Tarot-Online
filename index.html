@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ดูดวงไพ่ยิปซี</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+        }
+
+        .bg-mystic {
+            background: radial-gradient(circle at top, #1f1b2e, #0c0a1a);
+        }
+
+        .glow {
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+        }
+
+        .card-hover:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+        }
+    </style>
+</head>
+
+<body class="bg-mystic text-white min-h-screen flex items-center justify-center">
+    <div class="max-w-md w-full p-6">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-yellow-200 drop-shadow">🔮 เลือกการทำนายไพ่</h1>
+            <p class="text-purple-200 mt-2">พลังแห่งจักรวาลรอคุณเลือกคำตอบ...</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 text-center text-white max-w-xs mx-auto mt-6">
+            <!-- ไพ่ 1 ใบ -->
+            <div class="flex flex-col items-center hover:scale-110 transition cursor-pointer">
+                <div class="text-3xl">🃏</div>
+                <span class="text-sm mt-1">ไพ่ 1 ใบ</span>
+            </div>
+
+            <!-- ไพ่ 3 ใบ -->
+            <div class="flex flex-col items-center hover:scale-110 transition cursor-pointer">
+                <div class="text-3xl">⏳</div>
+                <span class="text-sm mt-1">ไพ่ 3 ใบ</span>
+            </div>
+
+            <!-- ความรัก -->
+            <div class="flex flex-col items-center hover:scale-110 transition cursor-pointer">
+                <div class="text-3xl">💖</div>
+                <span class="text-sm mt-1">ความรัก</span>
+            </div>
+
+            <!-- การงาน -->
+            <div class="flex flex-col items-center hover:scale-110 transition cursor-pointer">
+                <div class="text-3xl">💼</div>
+                <span class="text-sm mt-1">การงาน</span>
+            </div>
+
+            <!-- การเงิน -->
+            <div class="flex flex-col items-center hover:scale-110 transition cursor-pointer">
+                <div class="text-3xl">💰</div>
+                <span class="text-sm mt-1">การเงิน</span>
+            </div>
+
+            <!-- โชคลาภ -->
+            <div class="flex flex-col items-center hover:scale-110 transition cursor-pointer">
+                <div class="text-3xl">🍀</div>
+                <span class="text-sm mt-1">โชคลาภ</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
