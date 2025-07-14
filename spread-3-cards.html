@@ -78,96 +78,163 @@
     <div class="flex flex-col items-center gap-4 mb-6">
       <div id="row1" class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide"></div>
       <div id="row2" class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide"></div>
-      <!-- <div id="row3" class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide block sm:hidden"> -->
-      <div id="row3" class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide block sm:hidden border border-red-500"></div>
+      <div id="row3" class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide"></div>
+
+      <button onclick="revealCards()"
+        class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-6 rounded-xl transition">
+        🔮 ทำนายไพ่
+      </button>
     </div>
 
-    <button onclick="revealCards()"
-      class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-6 rounded-xl transition">
-      🔮 ทำนายไพ่
-    </button>
-  </div>
+    <script>
+      // const totalCards = 78;
+      // const selected = {};
+      // const revealed = {};
+      // let selectingSlot = "past";
 
-  <script>
-    const totalCards = 78;
-    const selected = {};
-    const revealed = {};
-    let selectingSlot = "past";
-
-    const cardBackSrc = "images/card-back.png";
-    const row1 = document.getElementById("row1");
-    const row2 = document.getElementById("row2");
-    const row3 = document.getElementById("row3");
-
-    for (let i = 0; i < totalCards; i++) {
-      const img = document.createElement("img");
-      img.src = cardBackSrc;
-      img.className = "w-12 h-24 card-pick ml-[-35px]";
-      img.dataset.index = i;
-      img.onclick = () => selectCard(i, img);
+      // const cardBackSrc = "images/card-back.png";
+      // const row1 = document.getElementById("row1");
+      // const row2 = document.getElementById("row2");
+      // const row3 = document.getElementById("row3");
 
 
-      if (window.innerWidth < 640) {
-        if (i < 26
-        ) {
-          row1.appendChild(img);
-        } else if (i < 52) {
-          row2.appendChild(img);             
-        } else {
-          row3.appendChild(img);
-        }
-      } else {
-        if (i < 39) {
-          row1.appendChild(img);
-        } else {
-          row2.appendChild(img);
+      // for (let i = 0; i < totalCards; i++) {
+      //   const img = document.createElement("img");
+      //   img.src = cardBackSrc;
+      //   img.className = "w-12 h-24 card-pick ml-[-35px]";
+      //   img.dataset.index = i;
+      //   img.onclick = () => selectCard(i, img);
+
+
+      //   if (window.innerWidth < 640) {
+      //     if (i < 26
+      //     ) {
+      //       row1.appendChild(img);
+      //     } else if (i < 52) {
+      //       row2.appendChild(img);             
+      //     } else {
+      //       row3.appendChild(img);
+      //     }
+      //   } else {
+      //     if (i < 39) {
+      //       row1.appendChild(img);
+      //     } else {
+      //       row2.appendChild(img);
+      //     }
+      //   }
+      // }
+
+      // function selectCard(index, cardEl) {
+      //   const question = document.getElementById("questionInput").value.trim();
+      //   if (!question) return alert("กรุณากรอกคำถามก่อนเลือกไพ่");
+      //   if (Object.keys(selected).length >= 3) return;
+      //   if (Object.values(selected).some(card => card.index === index)) return;
+
+      //   const isReversed = Math.random() < 0.5;
+      //   const slot = document.getElementById("slot-" + selectingSlot);
+      //   slot.innerHTML = "";
+
+      //   const img = document.createElement("img");
+      //   img.src = cardBackSrc;
+      //   img.className = "h-full object-contain transition";
+      //   slot.appendChild(img);
+
+      //   selected[selectingSlot] = { index, isReversed, element: img };
+      //   revealed[selectingSlot] = false;
+
+      //   cardEl.remove();
+
+      //   if (selectingSlot === "past") selectingSlot = "present";
+      //   else if (selectingSlot === "present") selectingSlot = "future";
+
+      //   updateCurrentSlot();
+      // }
+
+      // function revealCards() {
+      //   for (const slotKey of ["past", "present", "future"]) {
+      //     const data = selected[slotKey];
+      //     if (!data || revealed[slotKey]) continue;
+
+      //     const { index, isReversed, element } = data;
+      //     element.src = `images/rws_${String(index).padStart(2, '0')}.png`;
+      //     element.style.transform = isReversed ? "rotate(180deg)" : "rotate(0deg)";
+      //     revealed[slotKey] = true;
+      //   }
+      // }
+
+      // function updateCurrentSlot() {
+      //   const map = { past: "อดีต", present: "ปัจจุบัน", future: "อนาคต" };
+      //   document.getElementById("currentSelect").textContent = map[selectingSlot];
+      // }
+      const totalCards = 78;
+      const selected = {};
+      const revealed = {};
+      let selectingSlot = "past";
+
+      const cardBackSrc = "images/card-back.png";
+      const row1 = document.getElementById("row1");
+      const row2 = document.getElementById("row2");
+      const row3 = document.getElementById("row3");
+
+      // 🔁 ✅ แบ่งไพ่แถวละ 26 ใบแน่นอน
+      const perRow = 26;
+      const rows = [row1, row2, row3];
+
+      for (let i = 0; i < totalCards; i++) {
+        const img = document.createElement("img");
+        img.src = cardBackSrc;
+        img.className = "w-12 h-24 card-pick";
+        if (i % 26 !== 0) img.classList.add("ml-[-35px]");
+        img.dataset.index = i;
+        img.onclick = () => selectCard(i, img);
+
+        const targetRow = rows[Math.floor(i / perRow)];
+        targetRow.appendChild(img);
+      }
+
+      function selectCard(index, cardEl) {
+        const question = document.getElementById("questionInput").value.trim();
+        if (!question) return alert("กรุณากรอกคำถามก่อนเลือกไพ่");
+        if (Object.keys(selected).length >= 3) return;
+        if (Object.values(selected).some(card => card.index === index)) return;
+
+        const isReversed = Math.random() < 0.5;
+        const slot = document.getElementById("slot-" + selectingSlot);
+        slot.innerHTML = "";
+
+        const img = document.createElement("img");
+        img.src = cardBackSrc;
+        img.className = "h-full object-contain transition";
+        slot.appendChild(img);
+
+        selected[selectingSlot] = { index, isReversed, element: img };
+        revealed[selectingSlot] = false;
+
+        cardEl.remove();
+
+        if (selectingSlot === "past") selectingSlot = "present";
+        else if (selectingSlot === "present") selectingSlot = "future";
+
+        updateCurrentSlot();
+      }
+
+      function revealCards() {
+        for (const slotKey of ["past", "present", "future"]) {
+          const data = selected[slotKey];
+          if (!data || revealed[slotKey]) continue;
+
+          const { index, isReversed, element } = data;
+          element.src = `images/rws_${String(index).padStart(2, '0')}.png`;
+          element.style.transform = isReversed ? "rotate(180deg)" : "rotate(0deg)";
+          revealed[slotKey] = true;
         }
       }
-    }
 
-    function selectCard(index, cardEl) {
-      const question = document.getElementById("questionInput").value.trim();
-      if (!question) return alert("กรุณากรอกคำถามก่อนเลือกไพ่");
-      if (Object.keys(selected).length >= 3) return;
-      if (Object.values(selected).some(card => card.index === index)) return;
-
-      const isReversed = Math.random() < 0.5;
-      const slot = document.getElementById("slot-" + selectingSlot);
-      slot.innerHTML = "";
-
-      const img = document.createElement("img");
-      img.src = cardBackSrc;
-      img.className = "h-full object-contain transition";
-      slot.appendChild(img);
-
-      selected[selectingSlot] = { index, isReversed, element: img };
-      revealed[selectingSlot] = false;
-
-      cardEl.remove();
-
-      if (selectingSlot === "past") selectingSlot = "present";
-      else if (selectingSlot === "present") selectingSlot = "future";
-
-      updateCurrentSlot();
-    }
-
-    function revealCards() {
-      for (const slotKey of ["past", "present", "future"]) {
-        const data = selected[slotKey];
-        if (!data || revealed[slotKey]) continue;
-
-        const { index, isReversed, element } = data;
-        element.src = `images/rws_${String(index).padStart(2, '0')}.png`;
-        element.style.transform = isReversed ? "rotate(180deg)" : "rotate(0deg)";
-        revealed[slotKey] = true;
+      function updateCurrentSlot() {
+        const map = { past: "อดีต", present: "ปัจจุบัน", future: "อนาคต" };
+        document.getElementById("currentSelect").textContent = map[selectingSlot];
       }
-    }
-
-    function updateCurrentSlot() {
-      const map = { past: "อดีต", present: "ปัจจุบัน", future: "อนาคต" };
-      document.getElementById("currentSelect").textContent = map[selectingSlot];
-    }
-  </script>
+    </script>
 </body>
 
 </html>
