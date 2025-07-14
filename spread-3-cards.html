@@ -85,8 +85,6 @@
       <div id="row1" class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide"></div>
       <div id="row2" class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide"></div>
       <div id="row3" class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide"></div>
-      <div id="row4"
-        class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide px-2 block sm:hidden"></div>
 
       <button onclick="revealCards()"
         class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-6 rounded-xl transition">
@@ -129,12 +127,11 @@
       const row1 = document.getElementById("row1");
       const row2 = document.getElementById("row2");
       const row3 = document.getElementById("row3");
-      const row4 = document.getElementById("row4");
 
       // 🔁 ✅ แบ่งไพ่แถวละ 26 ใบแน่นอน
       const isMobile = window.innerWidth < 640;
-      const perRow = isMobile ? 20 : 26; // ✅ แถวละ 20 บนมือถือ
-      const rows = isMobile ? [row1, row2, row3, row4] : [row1, row2, row3];
+      const perRow = isMobile ? 26 : 26; // ✅ แถวละ 20 บนมือถือ
+      const rows = isMobile ? [row1, row2, row3] : [row1, row2, row3];
 
       for (let i = 0; i < totalCards; i++) {
         const img = document.createElement("img");
