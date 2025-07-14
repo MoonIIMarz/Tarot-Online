@@ -55,18 +55,24 @@
     <div class="flex justify-center gap-4 flex-wrap mb-6">
       <div>
         <h2 class="mb-2 font-semibold">อดีต</h2>
-        <div id="slot-past" class="h-32 w-20 mx-auto flex items-center justify-center text-gray-500 italic text-sm">
-          ยังไม่เลือก</div>
+        <div id="slot-past"
+          class="w-24 min-h-[7rem] mx-auto flex flex-col items-center justify-center text-center text-sm text-white">
+          ยังไม่เลือก
+        </div>
       </div>
       <div>
         <h2 class="mb-2 font-semibold">ปัจจุบัน</h2>
-        <div id="slot-present" class="h-32 w-20 mx-auto flex items-center justify-center text-gray-500 italic text-sm">
-          ยังไม่เลือก</div>
+        <div id="slot-present"
+          class="w-24 min-h-[7rem] mx-auto flex flex-col items-center justify-center text-center text-sm text-white">
+          ยังไม่เลือก
+        </div>
       </div>
       <div>
         <h2 class="mb-2 font-semibold">อนาคต</h2>
-        <div id="slot-future" class="h-32 w-20 mx-auto flex items-center justify-center text-gray-500 italic text-sm">
-          ยังไม่เลือก</div>
+        <div id="slot-future"
+          class="w-24 min-h-[7rem] mx-auto flex flex-col items-center justify-center text-center text-sm text-white">
+          ยังไม่เลือก
+        </div>
       </div>
     </div>
 
@@ -79,6 +85,8 @@
       <div id="row1" class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide"></div>
       <div id="row2" class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide"></div>
       <div id="row3" class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide"></div>
+      <div id="row4"
+        class="flex justify-center relative h-24 w-full overflow-x-auto scrollbar-hide px-2 block sm:hidden"></div>
 
       <button onclick="revealCards()"
         class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-6 rounded-xl transition">
@@ -87,85 +95,31 @@
     </div>
 
     <script>
-      // const totalCards = 78;
-      // const selected = {};
-      // const revealed = {};
-      // let selectingSlot = "past";
+      const cardNames = [
+        "The Fool", "The Magician", "The High Priestess", "The Empress",
+        "The Emperor", "The Hierophant", "The Lovers", "The Chariot",
+        "Strength", "The Hermit", "Wheel of Fortune", "Justice",
+        "The Hanged Man", "Death", "Temperance", "The Devil",
+        "The Tower", "The Star", "The Moon", "The Sun",
+        "Judgement", "The World",
+        "Ace of Cups", "Two of Cups", "Three of Cups", "Four of Cups",
+        "Five of Cups", "Six of Cups", "Seven of Cups", "Eight of Cups",
+        "Nine of Cups", "Ten of Cups", "Page of Cups", "Knight of Cups",
+        "Queen of Cups", "King of Cups",
+        "Ace of Pentacles", "Two of Pentacles", "Three of Pentacles", "Four of Pentacles",
+        "Five of Pentacles", "Six of Pentacles", "Seven of Pentacles", "Eight of Pentacles",
+        "Nine of Pentacles", "Ten of Pentacles", "Page of Pentacles", "Knight of Pentacles",
+        "Queen of Pentacles", "King of Pentacles",
+        "Ace of Swords", "Two of Swords", "Three of Swords", "Four of Swords",
+        "Five of Swords", "Six of Swords", "Seven of Swords", "Eight of Swords",
+        "Nine of Swords", "Ten of Swords", "Page of Swords", "Knight of Swords",
+        "Queen of Swords", "King of Swords",
+        "Ace of Wands", "Two of Wands", "Three of Wands", "Four of Wands",
+        "Five of Wands", "Six of Wands", "Seven of Wands", "Eight of Wands",
+        "Nine of Wands", "Ten of Wands", "Page of Wands", "Knight of Wands",
+        "Queen of Wands", "King of Wands"
+      ];
 
-      // const cardBackSrc = "images/card-back.png";
-      // const row1 = document.getElementById("row1");
-      // const row2 = document.getElementById("row2");
-      // const row3 = document.getElementById("row3");
-
-
-      // for (let i = 0; i < totalCards; i++) {
-      //   const img = document.createElement("img");
-      //   img.src = cardBackSrc;
-      //   img.className = "w-12 h-24 card-pick ml-[-35px]";
-      //   img.dataset.index = i;
-      //   img.onclick = () => selectCard(i, img);
-
-
-      //   if (window.innerWidth < 640) {
-      //     if (i < 26
-      //     ) {
-      //       row1.appendChild(img);
-      //     } else if (i < 52) {
-      //       row2.appendChild(img);             
-      //     } else {
-      //       row3.appendChild(img);
-      //     }
-      //   } else {
-      //     if (i < 39) {
-      //       row1.appendChild(img);
-      //     } else {
-      //       row2.appendChild(img);
-      //     }
-      //   }
-      // }
-
-      // function selectCard(index, cardEl) {
-      //   const question = document.getElementById("questionInput").value.trim();
-      //   if (!question) return alert("กรุณากรอกคำถามก่อนเลือกไพ่");
-      //   if (Object.keys(selected).length >= 3) return;
-      //   if (Object.values(selected).some(card => card.index === index)) return;
-
-      //   const isReversed = Math.random() < 0.5;
-      //   const slot = document.getElementById("slot-" + selectingSlot);
-      //   slot.innerHTML = "";
-
-      //   const img = document.createElement("img");
-      //   img.src = cardBackSrc;
-      //   img.className = "h-full object-contain transition";
-      //   slot.appendChild(img);
-
-      //   selected[selectingSlot] = { index, isReversed, element: img };
-      //   revealed[selectingSlot] = false;
-
-      //   cardEl.remove();
-
-      //   if (selectingSlot === "past") selectingSlot = "present";
-      //   else if (selectingSlot === "present") selectingSlot = "future";
-
-      //   updateCurrentSlot();
-      // }
-
-      // function revealCards() {
-      //   for (const slotKey of ["past", "present", "future"]) {
-      //     const data = selected[slotKey];
-      //     if (!data || revealed[slotKey]) continue;
-
-      //     const { index, isReversed, element } = data;
-      //     element.src = `images/rws_${String(index).padStart(2, '0')}.png`;
-      //     element.style.transform = isReversed ? "rotate(180deg)" : "rotate(0deg)";
-      //     revealed[slotKey] = true;
-      //   }
-      // }
-
-      // function updateCurrentSlot() {
-      //   const map = { past: "อดีต", present: "ปัจจุบัน", future: "อนาคต" };
-      //   document.getElementById("currentSelect").textContent = map[selectingSlot];
-      // }
       const totalCards = 78;
       const selected = {};
       const revealed = {};
@@ -175,16 +129,23 @@
       const row1 = document.getElementById("row1");
       const row2 = document.getElementById("row2");
       const row3 = document.getElementById("row3");
+      const row4 = document.getElementById("row4");
 
       // 🔁 ✅ แบ่งไพ่แถวละ 26 ใบแน่นอน
-      const perRow = 26;
-      const rows = [row1, row2, row3];
+      const isMobile = window.innerWidth < 640;
+      const perRow = isMobile ? 20 : 26; // ✅ แถวละ 20 บนมือถือ
+      const rows = isMobile ? [row1, row2, row3, row4] : [row1, row2, row3];
 
       for (let i = 0; i < totalCards; i++) {
         const img = document.createElement("img");
         img.src = cardBackSrc;
         img.className = "w-12 h-24 card-pick";
-        if (i % 26 !== 0) img.classList.add("ml-[-35px]");
+
+        // ✅ ซ้อนน้อยลงบนมือถือ
+        if (i % perRow !== 0) {
+          img.classList.add(isMobile ? "ml-[-14px]" : "ml-[-35px]");
+        }
+
         img.dataset.index = i;
         img.onclick = () => selectCard(i, img);
 
@@ -214,9 +175,23 @@
 
         if (selectingSlot === "past") selectingSlot = "present";
         else if (selectingSlot === "present") selectingSlot = "future";
+        else selectingSlot = null; // ✅ กรณีเลือกครบแล้ว
 
         updateCurrentSlot();
       }
+
+      function updateCurrentSlot() {
+        const map = {
+          past: "อดีต",
+          present: "ปัจจุบัน",
+          future: "อนาคต",
+          null: "ครบแล้ว"
+        };
+
+        const currentEl = document.getElementById("currentSelect");
+        currentEl.textContent = map[selectingSlot] || "-";
+      }
+
 
       function revealCards() {
         for (const slotKey of ["past", "present", "future"]) {
@@ -227,12 +202,14 @@
           element.src = `images/rws_${String(index).padStart(2, '0')}.png`;
           element.style.transform = isReversed ? "rotate(180deg)" : "rotate(0deg)";
           revealed[slotKey] = true;
-        }
-      }
 
-      function updateCurrentSlot() {
-        const map = { past: "อดีต", present: "ปัจจุบัน", future: "อนาคต" };
-        document.getElementById("currentSelect").textContent = map[selectingSlot];
+          // ✅ แสดงชื่อไพ่
+          const slot = document.getElementById("slot-" + slotKey);
+          const nameDiv = document.createElement("div");
+          nameDiv.className = "mt-2 text-sm text-yellow-300";
+          nameDiv.textContent = cardNames[index] + (isReversed ? " (กลับหัว)" : "");
+          slot.appendChild(nameDiv);
+        }
       }
     </script>
 </body>
